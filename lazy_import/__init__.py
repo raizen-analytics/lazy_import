@@ -110,6 +110,10 @@ def _lazy_trace(self):
 logging.Logger.lazy_trace = _lazy_trace
 logger = logging.getLogger(__name__)
 
+def print_error():
+    import traceback
+    traceback.print_exc()
+
 ################################
 # Module/function registration #
 ################################
@@ -550,6 +554,7 @@ def _load_module(module):
             logger.debug("Failed to load {}.\n{}: {}"
                          .format(modname, err.__class__.__name__, err))
             logger.lazy_trace()
+            print_error()
             # Under Python 3 reloading our dummy LazyModule instances causes an
             # AttributeError if the module can't be found. Would be preferrable
             # if we could always rely on an ImportError. As it is we vet the
